@@ -1,2 +1,3 @@
 # Function dependencies, for example:
 # package>=version
+microbench==0.5
