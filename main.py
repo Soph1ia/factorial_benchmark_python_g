@@ -10,9 +10,18 @@ def hello_world(request):
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
     request_json = request.get_json()
-    if request.args and 'message' in request.args:
-        return request.args.get('message')
-    elif request_json and 'message' in request_json:
-        return request_json['message']
+    if request.args and 'message' in request.args or request_json and 'message' in request_json:
+        msg = request.args.get('message')
+        return factorial_function(msg)
     else:
         return f'Hello World!'
+
+
+def factorial_function(num):
+    # check if the number is negative, positive or zero
+    if num < 0:
+        return "Sorry, factorial does not exist for negative numbers"
+    else:
+        for i in range(1, num + 1):
+            factorial = factorial * i
+        return factorial
