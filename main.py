@@ -1,5 +1,4 @@
 # Google functions code that returns the benchmark results for calculating factorial
-import psutil
 from microbench import MicroBench
 
 benchmark = MicroBench()
