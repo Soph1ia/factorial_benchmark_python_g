@@ -19,6 +19,7 @@ def hello_world(request):
 
 def factorial_function(num):
     num = int(num)
+    factorial = 1
     # check if the number is negative, positive or zero
     if num < 0:
         return "Sorry, factorial does not exist for negative numbers"
