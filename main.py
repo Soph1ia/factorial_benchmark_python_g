@@ -10,6 +10,7 @@ def hello_world(request):
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
     request_json = request.get_json()
+    print("The request received is: ", request)
     if request.args and 'message' in request.args:
         msg = request.args.get('message')
         return factorial_function(msg)
