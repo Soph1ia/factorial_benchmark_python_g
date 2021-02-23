@@ -16,10 +16,12 @@ def hello_world(request):
     request_json = request.get_json()
     if request.args and 'message' in request.args:
         msg = request.args.get('message')
-        return str(benchmark(msg))
+        benchmark(msg)
+        return "Benchmark finished"
     elif request_json and 'message' in request_json:
         msg = request_json.get('message')
-        return str(benchmark(msg))
+        benchmark(msg)
+        return "Benchmark finished"
     else:
         return f'factorial benchmark did not run'
 
