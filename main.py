@@ -2,6 +2,7 @@
 # Reporting
 import time
 import statistics
+import logging
 
 
 def hello_world(request):
@@ -43,22 +44,22 @@ def benchmark(num):
     average_duration_time = {"factorial": []}
 
     for i in range(10000):  # adjust accordingly so whole thing takes a few sec
-        print('benchmark beginning')
+        logging.info('benchmark beginning')
         t0 = time.time()
         factorial_function(num)
         t1 = time.time()
-        print('Benchmark ended, calculating metrics')
+        logging.info('Benchmark ended, calculating metrics')
         throughput_time["factorial"].append(1 / ((t1 - t0) * 1000))
         average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
 
     for name, numbers in throughput_time.items():
-        print('FUNCTION:', name, 'Used', len(numbers), 'times')
-        print('\tMEDIAN', statistics.median(numbers), ' ops/s')
-        print('\tMEAN  ', statistics.mean(numbers), ' ops/s')
-        print('\tSTDEV ', statistics.stdev(numbers), ' ops/s')
+        logging.info('FUNCTION:', name, 'Used', len(numbers), 'times')
+        logging.info('\tMEDIAN', statistics.median(numbers), ' ops/s')
+        logging.info('\tMEAN  ', statistics.mean(numbers), ' ops/s')
+        logging.info('\tSTDEV ', statistics.stdev(numbers), ' ops/s')
 
     for name, numbers in average_duration_time.items():
-        print('FUNCTION:', name, 'Used', len(numbers), 'times')
-        print('\tMEDIAN', statistics.median(numbers), ' s/ops')
-        print('\tMEAN  ', statistics.mean(numbers), ' s/ops')
-        print('\tSTDEV ', statistics.stdev(numbers), ' s/ops')
+        logging.info('FUNCTION:', name, 'Used', len(numbers), 'times')
+        logging.info('\tMEDIAN', statistics.median(numbers), ' s/ops')
+        logging.info('\tMEAN  ', statistics.mean(numbers), ' s/ops')
+        logging.info('\tSTDEV ', statistics.stdev(numbers), ' s/ops')
