@@ -44,11 +44,11 @@ def benchmark(num):
     average_duration_time = {"factorial": []}
 
     for i in range(10000):  # adjust accordingly so whole thing takes a few sec
-        logging.info('benchmark beginning')
+        logging.info('factorial execution beginning')
         t0 = time.time()
         factorial_function(num)
         t1 = time.time()
-        logging.info('Benchmark ended, calculating metrics')
+        logging.info('factorial function ended, calculating metrics')
         throughput_time["factorial"].append(1 / ((t1 - t0) * 1000))
         average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
 
@@ -63,3 +63,5 @@ def benchmark(num):
         logging.info('\tMEDIAN', statistics.median(numbers), ' s/ops')
         logging.info('\tMEAN  ', statistics.mean(numbers), ' s/ops')
         logging.info('\tSTDEV ', statistics.stdev(numbers), ' s/ops')
+        
+    logging.critical("The benchmark is finished properly")
