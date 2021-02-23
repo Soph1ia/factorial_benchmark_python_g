@@ -22,7 +22,7 @@ def hello_world(request):
     elif request_json and 'message' in request_json:
         msg = request_json.get('message')
         benchmark(msg)
-        return "Benchmark finished"
+        return "Benchmark finished "
     else:
         return f'factorial benchmark did not run'
 

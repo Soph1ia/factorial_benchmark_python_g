@@ -1,2 +1,5 @@
 # Function dependencies, for example:
 # package>=version
+time
+statistics
+logging
