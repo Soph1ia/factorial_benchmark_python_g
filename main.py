@@ -1,10 +1,9 @@
 # Google functions code that returns the benchmark results for calculating factorial
-from microbench import MicroBench
+# Reporting
+import time
+import statistics
 
-benchmark = MicroBench()
 
-
-@benchmark
 def hello_world(request):
     """Responds to any HTTP request.
     Args:
@@ -17,12 +16,12 @@ def hello_world(request):
     request_json = request.get_json()
     if request.args and 'message' in request.args:
         msg = request.args.get('message')
-        return factorial_function(msg)
+        return str(benchmark(msg))
     elif request_json and 'message' in request_json:
         msg = request_json.get('message')
-        return str(factorial_function(msg))
+        return str(benchmark(msg))
     else:
-        return f'Hello World!'
+        return f'factorial benchmark did not run'
 
 
 def factorial_function(num):
@@ -35,3 +34,29 @@ def factorial_function(num):
         for i in range(1, num + 1):
             factorial = factorial * i
         return factorial
+
+
+def benchmark(num):
+    throughput_time = {"factorial": []}
+    average_duration_time = {"factorial": []}
+
+    for i in range(10000):  # adjust accordingly so whole thing takes a few sec
+        print('benchmark beginning')
+        t0 = time.time()
+        factorial_function(num)
+        t1 = time.time()
+        print('Benchmark ended, calculating metrics')
+        throughput_time["factorial"].append(1 / ((t1 - t0) * 1000))
+        average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
+
+    for name, numbers in throughput_time.items():
+        print('FUNCTION:', name, 'Used', len(numbers), 'times')
+        print('\tMEDIAN', statistics.median(numbers), ' ops/s')
+        print('\tMEAN  ', statistics.mean(numbers), ' ops/s')
+        print('\tSTDEV ', statistics.stdev(numbers), ' ops/s')
+
+    for name, numbers in average_duration_time.items():
+        print('FUNCTION:', name, 'Used', len(numbers), 'times')
+        print('\tMEDIAN', statistics.median(numbers), ' s/ops')
+        print('\tMEAN  ', statistics.mean(numbers), ' s/ops')
+        print('\tSTDEV ', statistics.stdev(numbers), ' s/ops')
