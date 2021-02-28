@@ -52,7 +52,7 @@ def benchmark(num):
     throughput_time = {"factorial": []}
     average_duration_time = {"factorial": []}
 
-    for i in range(10000):  # adjust accordingly so whole thing takes a few sec
+    for i in range(20):  # adjust accordingly so whole thing takes a few sec
         logging.info('factorial execution beginning')
         t0 = time.time()
         factorial_function(num)
@@ -66,20 +66,18 @@ def benchmark(num):
         median = str(statistics.median(numbers))
         mean = str(statistics.mean(numbers))
         stdev = str(statistics.stdev(numbers))
-        logging.info('FUNCTION:', name, 'Used', length, 'times')
-        logging.info('\tMEDIAN', median, ' ops/s')
-        logging.info('\tMEAN  ', mean, ' ops/s')
-        logging.info('\tSTDEV ', stdev, ' ops/s')
+        output = format("FUNCTION {} used {} times. > MEDIAN {} ops/s > MEAN {} ops/s  > STDEV {} ops/s", name, length,
+                        median, mean, stdev)
+        logging.info(output)
 
     for name, numbers in average_duration_time.items():
         length = str(len(numbers))
         median = str(statistics.median(numbers))
         mean = str(statistics.mean(numbers))
         stdev = str(statistics.stdev(numbers))
-        logging.info('FUNCTION:', name, 'Used', length, 'times')
-        logging.info('\tMEDIAN', median, ' ops/s')
-        logging.info('\tMEAN  ', mean, ' ops/s')
-        logging.info('\tSTDEV ', stdev, ' ops/s')
+        output = format("FUNCTION {} used {} times. > MEDIAN {} ops/s > MEAN {} ops/s  > STDEV {} ops/s", name, length,
+                        median, mean, stdev)
+        logging.info(output)
 
     logging.critical("The benchmark is finished properly")
 
