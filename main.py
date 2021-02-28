@@ -53,15 +53,23 @@ def benchmark(num):
         average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
 
     for name, numbers in throughput_time.items():
-        logging.info('FUNCTION:', name, 'Used', len(numbers), 'times')
-        logging.info('\tMEDIAN', statistics.median(numbers), ' ops/s')
-        logging.info('\tMEAN  ', statistics.mean(numbers), ' ops/s')
-        logging.info('\tSTDEV ', statistics.stdev(numbers), ' ops/s')
+        length = len(numbers)
+        median = statistics.median(numbers)
+        mean = statistics.mean(numbers)
+        stdev = statistics.stdev(numbers)
+        logging.info('FUNCTION:', name, 'Used', length, 'times')
+        logging.info('\tMEDIAN', median, ' ops/s')
+        logging.info('\tMEAN  ', mean, ' ops/s')
+        logging.info('\tSTDEV ', stdev, ' ops/s')
 
     for name, numbers in average_duration_time.items():
-        logging.info('FUNCTION:', name, 'Used', len(numbers), 'times')
-        logging.info('\tMEDIAN', statistics.median(numbers), ' s/ops')
-        logging.info('\tMEAN  ', statistics.mean(numbers), ' s/ops')
-        logging.info('\tSTDEV ', statistics.stdev(numbers), ' s/ops')
-        
+        length = len(numbers)
+        median = statistics.median(numbers)
+        mean = statistics.mean(numbers)
+        stdev = statistics.stdev(numbers)
+        logging.info('FUNCTION:', name, 'Used', length, 'times')
+        logging.info('\tMEDIAN', median, ' ops/s')
+        logging.info('\tMEAN  ', mean, ' ops/s')
+        logging.info('\tSTDEV ', stdev, ' ops/s')
+
     logging.critical("The benchmark is finished properly")
