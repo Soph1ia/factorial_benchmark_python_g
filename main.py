@@ -2,25 +2,15 @@
 # Reporting
 import time
 import statistics
-# import logging
-from google.cloud import logging
-from google.cloud.logging import Resource
+import logging
+import google.cloud.logging
 
-log_client = logging.Client()
 
-# This is the resource type of the log
-log_name = 'projects/fyp-hello-world-g/logs/cloudaudit.googleapis.com%2Factivity'
+def setup_logging():
+    client = google.cloud.logging.Client
 
-# Inside the resource, nest the required labels specific to the resource type
-res = Resource(type="cloud_function",
-               labels={
-                   "function_name": "python-factorial-code",
-                   "region": "europe-west2"
-               },
-               )
-logger = log_client.logger(log_name.format("fyp-hello-world-g"))
-logger.log_struct(
-    {"message": "message string to log"}, resource=res, severity='ERROR')
+    client.get_default_handler()
+    client.setup_logging()
 
 
 def hello_world(request):
@@ -33,6 +23,7 @@ def hello_world(request):
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
     request_json = request.get_json()
+    setup_logging()
     if request.args and 'message' in request.args:
         msg = request.args.get('message')
         benchmark(msg)
@@ -62,11 +53,11 @@ def benchmark(num):
     average_duration_time = {"factorial": []}
 
     for i in range(10000):  # adjust accordingly so whole thing takes a few sec
-        logger.info('factorial execution beginning')
+        logging.info('factorial execution beginning')
         t0 = time.time()
         factorial_function(num)
         t1 = time.time()
-        logger.info('factorial function ended, calculating metrics')
+        logging.info('factorial function ended, calculating metrics')
         throughput_time["factorial"].append(1 / ((t1 - t0) * 1000))
         average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
 
@@ -75,19 +66,23 @@ def benchmark(num):
         median = statistics.median(numbers)
         mean = statistics.mean(numbers)
         stdev = statistics.stdev(numbers)
-        logger.info('FUNCTION:', name, 'Used', length, 'times')
-        logger.info('\tMEDIAN', median, ' ops/s')
-        logger.info('\tMEAN  ', mean, ' ops/s')
-        logger.info('\tSTDEV ', stdev, ' ops/s')
+        logging.info('FUNCTION:', name, 'Used', length, 'times')
+        logging.info('\tMEDIAN', median, ' ops/s')
+        logging.info('\tMEAN  ', mean, ' ops/s')
+        logging.info('\tSTDEV ', stdev, ' ops/s')
 
     for name, numbers in average_duration_time.items():
         length = len(numbers)
         median = statistics.median(numbers)
         mean = statistics.mean(numbers)
         stdev = statistics.stdev(numbers)
-        logger.info('FUNCTION:', name, 'Used', length, 'times')
-        logger.info('\tMEDIAN', median, ' ops/s')
-        logger.info('\tMEAN  ', mean, ' ops/s')
-        logger.info('\tSTDEV ', stdev, ' ops/s')
+        logging.info('FUNCTION:', name, 'Used', length, 'times')
+        logging.info('\tMEDIAN', median, ' ops/s')
+        logging.info('\tMEAN  ', mean, ' ops/s')
+        logging.info('\tSTDEV ', stdev, ' ops/s')
 
-    logger.critical("The benchmark is finished properly")
+    logging.critical("The benchmark is finished properly")
+
+
+if __name__ == '__main__':
+    benchmark(5)
