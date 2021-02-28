@@ -4,7 +4,7 @@ import time
 import statistics
 # import logging
 from google.cloud import logging
-from google.cloud.logging.resource import Resource
+from google.cloud.logging import Resource
 
 log_client = logging.Client()
 
