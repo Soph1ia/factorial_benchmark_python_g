@@ -52,7 +52,7 @@ def benchmark(num):
     throughput_time = {"factorial": []}
     average_duration_time = {"factorial": []}
 
-    for i in range(20):  # adjust accordingly so whole thing takes a few sec
+    for i in range(40):  # adjust accordingly so whole thing takes a few sec
         logging.info('factorial execution beginning')
         t0 = time.time()
         factorial_function(num)
