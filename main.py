@@ -66,8 +66,9 @@ def benchmark(num):
         median = str(statistics.median(numbers))
         mean = str(statistics.mean(numbers))
         stdev = str(statistics.stdev(numbers))
-        output = format("FUNCTION {} used {} times. > MEDIAN {} ops/s > MEAN {} ops/s  > STDEV {} ops/s", name, length,
-                        median, mean, stdev)
+        output = "FUNCTION {} used {} times. > MEDIAN {} ops/s > MEAN {} ops/s  > STDEV {} ops/s".format(name, length,
+                                                                                                         median, mean,
+                                                                                                         stdev)
         logging.info(output)
 
     for name, numbers in average_duration_time.items():
@@ -75,8 +76,9 @@ def benchmark(num):
         median = str(statistics.median(numbers))
         mean = str(statistics.mean(numbers))
         stdev = str(statistics.stdev(numbers))
-        output = format("FUNCTION {} used {} times. > MEDIAN {} ops/s > MEAN {} ops/s  > STDEV {} ops/s", name, length,
-                        median, mean, stdev)
+        output = "FUNCTION {} used {} times. > MEDIAN {} ops/s > MEAN {} ops/s  > STDEV {} ops/s".format(name, length,
+                                                                                                         median, mean,
+                                                                                                         stdev)
         logging.info(output)
 
     logging.critical("The benchmark is finished properly")
