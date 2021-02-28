@@ -7,7 +7,7 @@ import google.cloud.logging
 
 
 def setup_logging():
-    client = google.cloud.logging.Client
+    client = google.cloud.logging.Client()
 
     client.get_default_handler()
     client.setup_logging()
