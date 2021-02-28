@@ -58,31 +58,34 @@ def benchmark(num):
         factorial_function(num)
         t1 = time.time()
         logging.info('factorial function ended, calculating metrics')
-        throughput_time["factorial"].append(1 / ((t1 - t0) * 1000))
-        average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
+        if i > 20:  # We let it warmup for first 20 rounds, then consider the last 20 metrics
+            throughput_time["factorial"].append(1 / ((t1 - t0) * 1000))
+            average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
 
     for name, numbers in throughput_time.items():
+        logging.info("The throughput time")
         length = str(len(numbers))
         median = str(statistics.median(numbers))
         mean = str(statistics.mean(numbers))
         stdev = str(statistics.stdev(numbers))
-        output = "FUNCTION {} used {} times. > MEDIAN {} ops/s > MEAN {} ops/s  > STDEV {} ops/s".format(name, length,
-                                                                                                         median, mean,
-                                                                                                         stdev)
+        output = "FUNCTION {} used {} times. > MEDIAN {} ops/ms > MEAN {} ops/ms  > STDEV {} ops/ms".format(name,
+                                                                                                            length,
+                                                                                                            median,
+                                                                                                            mean,
+                                                                                                            stdev)
         logging.info(output)
 
     for name, numbers in average_duration_time.items():
+        logging.info("The average Duration details")
         length = str(len(numbers))
         median = str(statistics.median(numbers))
         mean = str(statistics.mean(numbers))
         stdev = str(statistics.stdev(numbers))
-        output = "FUNCTION {} used {} times. > MEDIAN {} ops/s > MEAN {} ops/s  > STDEV {} ops/s".format(name, length,
-                                                                                                         median, mean,
-                                                                                                         stdev)
+        output = "FUNCTION {} used {} times. > MEDIAN {} ms/ops > MEAN {} ms/ops  > STDEV {} ms/ops".format(name,
+                                                                                                            length,
+                                                                                                            median,
+                                                                                                            mean,
+                                                                                                            stdev)
         logging.info(output)
 
     logging.critical("The benchmark is finished properly")
-
-
-if __name__ == '__main__':
-    benchmark(5)
