@@ -62,20 +62,20 @@ def benchmark(num):
         average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
 
     for name, numbers in throughput_time.items():
-        length = len(numbers)
-        median = statistics.median(numbers)
-        mean = statistics.mean(numbers)
-        stdev = statistics.stdev(numbers)
+        length = str(len(numbers))
+        median = str(statistics.median(numbers))
+        mean = str(statistics.mean(numbers))
+        stdev = str(statistics.stdev(numbers))
         logging.info('FUNCTION:', name, 'Used', length, 'times')
         logging.info('\tMEDIAN', median, ' ops/s')
         logging.info('\tMEAN  ', mean, ' ops/s')
         logging.info('\tSTDEV ', stdev, ' ops/s')
 
     for name, numbers in average_duration_time.items():
-        length = len(numbers)
-        median = statistics.median(numbers)
-        mean = statistics.mean(numbers)
-        stdev = statistics.stdev(numbers)
+        length = str(len(numbers))
+        median = str(statistics.median(numbers))
+        mean = str(statistics.mean(numbers))
+        stdev = str(statistics.stdev(numbers))
         logging.info('FUNCTION:', name, 'Used', length, 'times')
         logging.info('\tMEDIAN', median, ' ops/s')
         logging.info('\tMEAN  ', mean, ' ops/s')
