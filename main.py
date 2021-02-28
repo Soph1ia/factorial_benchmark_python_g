@@ -58,7 +58,7 @@ def benchmark(num):
         factorial_function(num)
         t1 = time.time()
         logging.info('factorial function ended, calculating metrics')
-        if i > 20:  # We let it warmup for first 20 rounds, then consider the last 20 metrics
+        if i >= 20:  # We let it warmup for first 20 rounds, then consider the last 20 metrics
             throughput_time["factorial"].append(1 / ((t1 - t0) * 1000))
             average_duration_time["factorial"].append(((t1 - t0) * 1000) / 1)
 
